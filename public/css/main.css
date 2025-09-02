@@ -4,9 +4,35 @@ body {
     color: white;
 }
 
+/* general */
+
 img {
     max-width: 200px;
     height: 300px;
+}
+
+.btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+.btn-delete {
+    background-color: red;
+    margin-top: 1rem;
+}
+
+.btn-delete:hover {
+    background-color: rgb(185, 2, 2);
 }
 
 /* header */
@@ -51,18 +77,19 @@ header li a {
 
 /* Les Jeux */
 
-.certification {
+/* .certification {
     margin-top: 5rem;
     font-family: "Nunito", sans-serif;
-}
+} */
 
 
-.certification-brand {
+.affiche-game {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    margin-top: 3rem;
     margin-bottom: 10rem;
     max-width: 1400px;
     margin-left: auto;
@@ -71,7 +98,7 @@ header li a {
 
 }
 
-.certification-brand-rectangle {
+.affiche-game-rectangle {
     box-sizing: border-box;
     width: 260;
     height: 380px;
@@ -79,4 +106,64 @@ header li a {
     background: #181818;
     text-align: center;
     padding-top: 37px;
+    margin-bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Formulaire */
+
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.card {
+    background: #181818;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    padding: 2.5rem 2rem;
+    width: 350px;
+    
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+label {
+    font-family: "Nunito", sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+input.form-control {
+    padding: 0.7rem;
+    border-radius: 6px;
+    border: none;
+    background: #232323;
+    color: white;
+    font-size: 1rem;
+}
+
+button[type="submit"] {
+    background: #3DD47E;
+    color: #181818;
+    border: none;
+    border-radius: 6px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-family: "Nunito", sans-serif;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+    background: #2bb36a;
 }

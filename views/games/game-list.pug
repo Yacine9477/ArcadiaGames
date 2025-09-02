@@ -1,19 +1,35 @@
-div(class="certification-brand")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  div(class="certification-brand-rectangle")
-    img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+div(class="affiche-game")
+  if games
+    each game in games
+      div(class="affiche-game-rectangle")
+        h2= game.title
+        if game.linkImage
+          img(src= game.linkImage alt="affiche Jeu")
+        else 
+          span pas d'image
+        button(class="btn")= game.price
+          span  €
+        button(class="btn btn-delete" gameid=game._id) Supprimer
+
+
+
+
+
+
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+  //- div(class="affiche-game-rectangle")
+  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")

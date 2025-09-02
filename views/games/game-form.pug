@@ -1,4 +1,13 @@
 extends ../layout.pug
 
 block content
-    h1 Hello
+    div(class="form-container")
+        div(class="card")
+            form(method="post" action="/games")
+                label(for="title") Titre
+                input(class="form-control" type="text" id="title" name="title" placeholder="Entrez un titre")
+                label(for="linkImage")
+                input(class="form-control" type="text" id="linkImage" name="linkImage" placeholder="Entrez lien image")
+                label(for="price")
+                input(class="form-control" type="number" id="price" name="price" placeholder="Entrez le prix")
+                button(type="submit") Ajouter
