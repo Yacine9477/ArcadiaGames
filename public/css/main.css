@@ -4,6 +4,11 @@ body {
     color: white;
 }
 
+a {
+    color: white;
+    text-decoration: none;
+}
+
 /* general */
 
 img {
@@ -26,13 +31,21 @@ img {
   background-color: #2980b9;
 }
 
+.btn-edit {
+    background-color: orange;
+}
+
+.btn-edit:hover {
+    background-color: rgb(209, 137, 4);
+}
+
 .btn-delete {
     background-color: red;
     margin-top: 1rem;
 }
 
 .btn-delete:hover {
-    background-color: rgb(185, 2, 2);
+    background-color: rgb(187, 2, 2);
 }
 
 /* header */
@@ -50,7 +63,7 @@ header h1 {
     font-weight: 400;
 }
 
-header h1 span {
+header h1 span .title {
     color: rgb(12, 156, 106);
 }
 
@@ -70,10 +83,10 @@ header li a:hover {
     border-bottom: solid #3DD47E;
 }
 
-header li a {
+/* header li a {
     text-decoration: none;
     color: white;
-}
+} */
 
 /* Les Jeux */
 

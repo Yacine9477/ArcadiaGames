@@ -3,11 +3,11 @@ extends ../layout.pug
 block content
     div(class="form-container")
         div(class="card")
-            form(method="post" action="/games")
+            form(method="post" action= game._id ? "/games/update/" + game._id : "/games")
                 label(for="title") Titre
-                input(class="form-control" type="text" id="title" name="title" placeholder="Entrez un titre")
-                label(for="linkImage")
-                input(class="form-control" type="text" id="linkImage" name="linkImage" placeholder="Entrez lien image")
-                label(for="price")
-                input(class="form-control" type="number" id="price" name="price" placeholder="Entrez le prix")
+                input(class="form-control" type="text" id="title" name="title" placeholder="Entrez un titre" value=game.title)
+                label(for="linkImage") Image
+                input(class="form-control" type="text" id="linkImage" name="linkImage" placeholder="Entrez lien image" value=game.linkImage) 
+                label(for="price") Prix
+                input(class="form-control" type="number" id="price" name="price" placeholder="Entrez le prix" value=game.price)
                 button(type="submit") Ajouter

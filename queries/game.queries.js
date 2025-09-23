@@ -12,3 +12,11 @@ exports.getGames = () => {
 exports.deleteGame = (gameId) => {
     return Game.findByIdAndDelete(gameId).exec();
 }
+
+exports.getGame = (gameId) => {
+    return Game.findOne({_id: gameId }).exec();
+}
+
+exports.updateGame = (gameId, game) => {
+    return Game.findByIdAndUpdate(gameId, { $set: game });
+}

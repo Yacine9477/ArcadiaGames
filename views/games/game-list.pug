@@ -9,6 +9,7 @@ div(class="affiche-game")
           span pas d'image
         button(class="btn")= game.price
           span  €
+        a(class="btn btn-edit" href="/games/edit/" + game._id) Edit
         button(class="btn btn-delete" gameid=game._id) Supprimer
 
 
