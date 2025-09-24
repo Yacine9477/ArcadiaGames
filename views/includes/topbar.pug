@@ -7,5 +7,13 @@ header
       ul
         li 
           a(href="#") Tous les jeux
-        li 
-          a(href="/games/game/new") Ajouter un Jeu
+        if isAuthenticated
+          li 
+            a(href="/games/game/new") Ajouter un Jeu
+          li 
+            a(href="/auth/signout") Déconnexion
+        else
+          li 
+            a(href="/auth/signin/form") Connexion
+          li 
+            a(href="/users/signup/form") Inscription

@@ -5,7 +5,7 @@ const {createGame, getGames, deleteGame, getGame, updateGame} = require('../quer
 exports.game = async (req, res, next) => {
     try {
         const games = await getGames();
-        res.render('games/game', {games});
+        res.render('games/game', {games, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     } catch(e) {
         next(e);
     }
@@ -13,7 +13,7 @@ exports.game = async (req, res, next) => {
 
 exports.gameNew = async (req, res, next) => {
     try {
-        res.render('games/game-form', { game: {}});
+        res.render('games/game-form', { game: {}, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     } catch(e) {
         next(e);
     }
@@ -27,7 +27,7 @@ exports.gameCreate = async (req, res, next) => {
         res.redirect('/games');
     } catch(e) {
         const errors = Object.keys(e.errors).map(key => e.errors[key].message);
-        res.status(400).render('games/game-form', {errors});
+        res.status(400).render('games/game-form', {errors, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     }
 }
 
@@ -48,7 +48,7 @@ exports.gameEdit = async (req, res,next) => {
     try {
         const gameId = req.params.gameId;
         const game = await getGame(gameId);
-        res.render('games/game-form', { game })
+        res.render('games/game-form', { game, isAuthenticated: req.isAuthenticated(), currentUser: req.user })
     } catch(e) {
         next(e)
     }
