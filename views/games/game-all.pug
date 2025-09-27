@@ -1,0 +1,9 @@
+extends ../layout.pug 
+
+block content 
+    script(src="/javascripts/games/game.js")
+    div(class="container-bar")
+        input(id='search' class="form-control" type="text" placeholder="Rechercher par titres")
+    div(class="tableaugame")
+        include game-list.pug
+                    

@@ -1,0 +1,10 @@
+extends ../layout.pug
+
+block content 
+    div(class="container-page")
+        div(class="container-page-info")
+            h2= game.title
+            img(src= game.linkImage alt="affiche jeu")
+        div(class="container-page-buy")
+            button(class="btn")= game.price
+                span  €

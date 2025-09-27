@@ -6,6 +6,8 @@ html(lang="en")
     link(rel="stylesheet" href="/css/main.css")
     script(src="https://unpkg.com/axios@1.6.7/dist/axios.min.js")
     title ArcadiaGames
+    script.
+      window.isAuthenticated = !{JSON.stringify(isAuthenticated)};
   body
     include includes/topbar.pug
     .container-fluid 

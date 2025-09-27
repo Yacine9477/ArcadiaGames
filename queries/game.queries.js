@@ -20,3 +20,7 @@ exports.getGame = (gameId) => {
 exports.updateGame = (gameId, game) => {
     return Game.findByIdAndUpdate(gameId, { $set: game });
 }
+
+exports.searchGames = (search) => {
+    return Game.find({ title: new RegExp(search, 'i')}).exec(); // le i permet d'être case-insensitive
+}

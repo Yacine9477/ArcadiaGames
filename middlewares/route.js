@@ -4,3 +4,5 @@ exports.ensureAuthenticated = (req, res, next) => {
     }
     res.redirect('/auth/signin/form');
 };
+
+// appeler req.isAuthenticated au cas où il est undefined appelé la méthode provoquerai une erreur
