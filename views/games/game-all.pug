@@ -2,8 +2,31 @@ extends ../layout.pug
 
 block content 
     script(src="/javascripts/games/game.js")
-    div(class="container-bar")
-        input(id='search' class="form-control" type="text" placeholder="Rechercher par titres")
-    div(class="tableaugame")
+    
+    div(class="all-games-container")
+        // En-tête avec recherche
+        div(class="all-games-header")
+            div(class="header-content")
+                h1(class="page-title")
+                    i(class="fas fa-th-large")
+                    span Tous nos jeux
+                p(class="page-subtitle") Explorez notre collection complète de jeux
+            
+            div(class="search-container")
+                div(class="search-wrapper")
+                    i(class="fas fa-search search-icon")
+                    input(id='search' class="search-input" type="text" placeholder="Rechercher un jeu par titre...")
+                    button(class="search-clear" type="button")
+                        i(class="fas fa-times")
+        
+        // Informations et filtres
+        div(class="games-info")
+            if games && games.length
+                p(class="games-count-display")
+                    i(class="fas fa-gamepad")
+                    span #{games.length} jeu(s) disponible(s)
+            else
+                p(class="no-games-message") Aucun jeu disponible pour le moment
+        
+        // Liste des jeux
         include game-list.pug
-                    

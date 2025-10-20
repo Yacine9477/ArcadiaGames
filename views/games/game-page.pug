@@ -1,12 +1,44 @@
 extends ../layout.pug
 
 block content 
-    div(class="container-page")
-        div(class="container-page-info")
-            h2= game.title
-            img(src= game.linkImage alt="affiche jeu")
-        div(class="container-page-buy")
-            a(href='#' class="btn")= game.price
-                span  €
-        a(href="/review/form/" + game._id class="btn")
-    include ../reviews/review-list.pug
+    div(class="game-page-container")
+        // En-tête avec image et infos principales
+        div(class="game-header")
+            div(class="game-image-section")
+                img(src= game.linkImage alt="affiche jeu" class="game-main-image")
+            
+            div(class="game-info-section")
+                h1(class="game-title")= game.title
+                
+                if game.summary
+                    p(class="game-summary")= game.summary
+                
+                div(class="game-meta")
+                    div(class="game-price")
+                        i(class="fas fa-tag")
+                        span Prix: #{game.price}€
+                    
+                    // Affichage des catégories si disponibles
+                    if categories && categories.length
+                        div(class="game-categories")
+                            i(class="fas fa-tags")
+                            span Catégories: 
+                            each category in categories
+                                span(class="category-badge")= category.name
+                
+                div(class="game-actions")
+                    a(href='#' class="btn btn-primary")
+                        i(class="fas fa-shopping-cart")
+                        span Acheter pour #{game.price}€
+                    
+                    a(href="/review/form/" + game._id class="btn btn-secondary")
+                        i(class="fas fa-star")
+                        span Laisser un avis
+
+        // Section des avis
+        div(class="reviews-section")
+            h2(class="reviews-title")
+                i(class="fas fa-comments")
+                span Avis des joueurs
+            
+            include ../reviews/review-list.pug

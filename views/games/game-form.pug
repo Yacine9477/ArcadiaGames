@@ -5,7 +5,7 @@ block content
         div(class="card")
             form(method="post" action= game._id ? "/games/update/" + game._id : "/games")
                 label(for="title") Titre
-                input(class="form-control" type="text" id="title" name="title" placeholder="Entrez un titre" value=game.title)
+                input(class="form-control" type="text" id="title" name="title" placeholder="Entrez un titre" required maxlength="15" value=game.title)
                 label(for="linkImage") Image
                 input(class="form-control" type="text" id="linkImage" name="linkImage" placeholder="Entrez lien image" value=game.linkImage) 
                 label(for="price") Prix
@@ -16,4 +16,6 @@ block content
                         - let isChecked = gameCategories && gameCategories.some(gc => gc.id == category.id)
                         input(type="checkbox" name="categories" value=category.id id="cat-" + category.id checked=isChecked)
                         label(for="cat-" + category.id)= category.name
+                label(for="summary") Résumé
+                textarea(class="form-control" id="summary" name="summary" placeholder="Résumé du jeu (max 500 caractères)" required maxlength="500")= game.summary || ""
                 button(type="submit") Ajouter

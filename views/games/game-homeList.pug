@@ -1,0 +1,59 @@
+div(class="categories-container")
+    each category in categories
+        section(class="category-section")
+            // En-tête de catégorie
+            div(class="category-header")
+                h2(class="category-title")
+                    span= category.name + " "
+                    case category.name
+                        when 'Coup de cœur'
+                            i(class="fas fa-heart category-icon heart")
+                        when 'Multijoueurs'
+                            i(class="fas fa-users category-icon multiplayer")
+                        when 'Horreur'
+                            i(class="fas fa-skull category-icon horror")
+                        when 'Famille'
+                            i(class="fas fa-home category-icon family")
+                        when 'Gestion'
+                            i(class="fas fa-chart-line category-icon management")
+                        default
+                            i(class="fas fa-gamepad category-icon default")
+                
+                // Compteur de jeux dans la catégorie
+                if gamesByCategory[category.name] && gamesByCategory[category.name].length
+                    span(class="games-count") #{gamesByCategory[category.name].length} jeu(s)
+                else
+                    span(class="games-count empty") Aucun jeu
+            
+            // Grille de jeux
+            div(class="games-grid")
+                if gamesByCategory[category.name] && gamesByCategory[category.name].length
+                    each game in gamesByCategory[category.name]
+                        article(class="game-card")
+                            div(class="game-card-image")
+                                if game.linkImage
+                                    img(src= game.linkImage alt=`Affiche de ${game.title}` loading="lazy")
+                                else 
+                                    div(class="no-image-placeholder")
+                                        i(class="fas fa-image")
+                                        span Pas d'image
+                            
+                            div(class="game-card-content")
+                                h3(class="game-card-title")= game.title
+                                
+                                if game.summary
+                                    p(class="game-card-summary")= game.summary
+                                
+                                div(class="game-card-footer")
+                                    div(class="game-price")
+                                        i(class="fas fa-tag")
+                                        span #{game.price}€
+                                    
+                                    a(class="game-card-button" href="/games/page/" + game._id)
+                                        i(class="fas fa-eye")
+                                        span Voir détails
+                else
+                    div(class="empty-category")
+                        i(class="fas fa-inbox")
+                        p Aucun jeu dans cette catégorie pour le moment
+                        p Revenez bientôt pour découvrir de nouveaux titres !

@@ -1,12 +1,26 @@
 if reviews && reviews.length
-    each review in reviews 
-        div(class="card")
-            div(class="card")
-                h4= review.title
-                small= review.username
-                div(class="card-text")
-                p Note: #{review.rating}/5
-                p=review.content
-
+    div(class="reviews-container")
+        each review in reviews 
+            div(class="review-card")
+                div(class="review-header")
+                    div(class="review-user")
+                        i(class="fas fa-user-circle")
+                        span(class="username")= review.username
+                    
+                    div(class="review-rating")
+                        // Affichage des étoiles
+                        - for(let i = 1; i <= 5; i++)
+                            if i <= review.rating
+                                i(class="fas fa-star star-filled")
+                            else
+                                i(class="far fa-star star-empty")
+                        span(class="rating-text") #{review.rating}/5
+                
+                div(class="review-body")
+                    h4(class="review-title")= review.title
+                    p(class="review-content")= review.content
 else 
-    div Aucun avis.
+    div(class="no-reviews")
+        i(class="fas fa-comment-slash")
+        p Aucun avis pour le moment.
+        p Soyez le premier à donner votre opinion !

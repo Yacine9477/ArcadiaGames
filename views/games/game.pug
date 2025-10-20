@@ -2,5 +2,14 @@ extends ../layout.pug
 
 block content 
     script(src="/javascripts/games/game.js")
-    div(class="tableaugame")
-        include game-list.pug
+    
+    div(class="home-container")
+        // En-tête de la page d'accueil
+        div(class="home-header")
+            h1(class="home-title")
+                i(class="fas fa-gamepad")
+                span Découvrez nos jeux
+            p(class="home-subtitle") Explorez notre collection de jeux par catégories
+        
+        // Contenu des catégories
+        include game-homeList.pug

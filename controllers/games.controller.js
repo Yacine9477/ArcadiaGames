@@ -2,14 +2,26 @@ const Game = require('../database/models/game.model');
 const {createGame, getGames, deleteGame, getGame, updateGame, searchGames} = require('../queries/game.queries');
 
 const { getReviewsByGameId, removeGameReviews } = require('../queries/reviewsSQL.queries');
-const { getCategories, addGameCategory, getGameCategories, removeGameCategories } = require('../queries/categoriesSQL.queries');
+const { getCategories, addGameCategory, getGameCategories, removeGameCategories, getGameIdsByCategory } = require('../queries/categoriesSQL.queries');
 const pool = require('../database/mysql');
 
 exports.game = async (req, res, next) => {
     try {
         const games = await getGames();
-        res.render('games/game', {games, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
+        const [categories] = await getCategories(pool);
+
+        const gamesByCategory = {}; // Objet pour organiser les jeux par catégories
+
+        for (const category of categories) {
+            const [gameIds] = await getGameIdsByCategory(pool, category.id); //récup les ids
+            const categoryGameIds = gameIds.map(row=> row.game_mongo_id);
+
+            gamesByCategory[category.name] = games.filter(game => categoryGameIds.includes(game._id.toString()));
+        }
+
+        res.render('games/game', {gamesByCategory, categories, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     } catch(e) {
+        console.error('Erreur dans exports.game:', e);
         next(e);
     }
 }
@@ -48,9 +60,9 @@ exports.gameCreate = async (req, res, next) => {
         // const body = req.body;
         // console.log('Form data:', body);
         // await createGame(body);
-        const { title, price, linkImage, categories } = req.body;
+        const { title, price, linkImage, summary, categories } = req.body;
 
-        const newGame = await createGame({title, price, linkImage});
+        const newGame = await createGame({title, price, linkImage, summary});
         const gameMongoId = newGame._id.toString();
 
         if (categories) {
@@ -102,9 +114,9 @@ exports.gameEdit = async (req, res,next) => {
 exports.gameUpdate = async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
-        const { title, price, linkImage, categories } = req.body;
+        const { title, price, linkImage, summary, categories } = req.body;
 
-        await updateGame(gameId, { title, price, linkImage});
+        await updateGame(gameId, { title, price, linkImage, summary});
 
         await removeGameCategories(pool, gameId);
 

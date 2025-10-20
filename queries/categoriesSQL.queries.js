@@ -23,3 +23,11 @@ exports.removeGameCategories = (pool, gameMongoId) => {
         [gameMongoId]
     );
 }
+
+exports.getGameIdsByCategory = (pool, categoryId) => {
+    return pool.query(`
+        SELECT game_mongo_id 
+        FROM game_categories 
+        WHERE category_id = ?
+    `, [categoryId]);
+}

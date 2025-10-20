@@ -1,19 +1,17 @@
-header
-      h1
-        a(href="/") 
-          span Arcadia
-            span(class="title") Games
-
-      ul
-        li 
-          a(href="/games/game/all") Tous les jeux
-        if isAuthenticated
-          li 
-            a(href="/games/game/new") Ajouter un Jeu
-          li 
-            a(href="/auth/signout") Déconnexion
-        else
-          li 
-            a(href="/auth/signin/form") Connexion
-          li 
-            a(href="/users/signup/form") Inscription
+header(class="topbar")
+    div(class="topbar-container")
+        a(href="/" class="logo") 
+            span Arcadia
+                span(class="title") Games
+        button(class="burger" id="burger")
+            span
+            span
+            span
+        nav(class="nav" id="nav")
+            a(href="/games/game/all") Tous les jeux
+            if isAuthenticated
+                a(href="/games/game/new") Ajouter un Jeu
+                a(href="/auth/signout") Déconnexion
+            else
+                a(href="/auth/signin/form") Connexion
+                a(href="/users/signup/form") Inscription

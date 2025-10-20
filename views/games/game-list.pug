@@ -1,36 +1,47 @@
-div(class="affiche-game")
-  if games
-    each game in games
-      div(class="affiche-game-rectangle")
-        h2= game.title
-        if game.linkImage
-          img(src= game.linkImage alt="affiche Jeu")
-        else 
-          span pas d'image
-        a(class="btn" href="/games/page/" + game._id)= game.price
-          span  €
-        a(class="btn btn-edit" href="/games/edit/" + game._id) Edit
-        button(class="btn btn-delete" gameid=game._id) Supprimer
-
-
-
-
-
-
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
-  //- div(class="affiche-game-rectangle")
-  //-   img(src="https://pics.filmaffinity.com/moonlighter-716346513-large.jpg" alt="affiche Jeu")
+div(class="games-grid-admin")
+    if games && games.length
+        each game in games
+            article(class="admin-game-card")
+                div(class="admin-game-image")
+                    if game.linkImage
+                        img(src= game.linkImage alt=`Affiche de ${game.title}` loading="lazy")
+                    else 
+                        div(class="admin-no-image")
+                            i(class="fas fa-image")
+                            span Pas d'image
+                
+                div(class="admin-game-content")
+                    div(class="admin-game-info")
+                        h2(class="admin-game-title")= game.title
+                        
+                        if game.summary
+                            p(class="admin-game-summary")= game.summary
+                        
+                        div(class="admin-game-meta")
+                            div(class="admin-game-price")
+                                i(class="fas fa-tag")
+                                span #{game.price}€
+                    
+                    div(class="admin-game-actions")
+                        a(class="admin-btn admin-btn-view" href="/games/page/" + game._id)
+                            i(class="fas fa-eye")
+                            span Voir
+                        
+                        // Boutons admin seulement si connecté
+                        if isAuthenticated
+                            a(class="admin-btn admin-btn-edit" href="/games/edit/" + game._id)
+                                i(class="fas fa-edit")
+                                span Éditer
+                            
+                            button(class="admin-btn admin-btn-delete" gameid=game._id)
+                                i(class="fas fa-trash")
+                                span Supprimer
+    else
+        div(class="empty-games-list")
+            i(class="fas fa-gamepad")
+            h3 Aucun jeu disponible
+            p Commencez par ajouter votre premier jeu à la collection !
+            if isAuthenticated
+                a(class="admin-btn admin-btn-primary" href="/games/game/new")
+                    i(class="fas fa-plus")
+                    span Ajouter un jeu
