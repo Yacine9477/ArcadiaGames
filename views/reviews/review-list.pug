@@ -1,0 +1,12 @@
+if reviews && reviews.length
+    each review in reviews 
+        div(class="card")
+            div(class="card")
+                h4= review.title
+                small= review.username
+                div(class="card-text")
+                p Note: #{review.rating}/5
+                p=review.content
+
+else 
+    div Aucun avis.

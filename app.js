@@ -4,6 +4,7 @@ const path = require('path');
 const errorHandler = require('errorhandler');
 const index = require('./routes');
 require('./database');
+const pool = require('./database/mysql');
 
 
 const app = express();
@@ -22,6 +23,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(index);
 
+// app.get('/', async (req, res) => {
+//     try {
+//         const [rows] = await pool.query('SELECT * FROM test')
+//         res.render('test', {data: rows});
+//     } catch(e) {
+//         console.error(e);
+//         res.status(500).send('Erreur serveur');
+//     }
+// })
 
 
 if (process.env.NODE_ENV === 'development') {

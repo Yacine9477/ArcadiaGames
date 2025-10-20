@@ -1,6 +1,9 @@
 const Game = require('../database/models/game.model');
-
 const {createGame, getGames, deleteGame, getGame, updateGame, searchGames} = require('../queries/game.queries');
+
+const { getReviewsByGameId, removeGameReviews } = require('../queries/reviewsSQL.queries');
+const { getCategories, addGameCategory, getGameCategories, removeGameCategories } = require('../queries/categoriesSQL.queries');
+const pool = require('../database/mysql');
 
 exports.game = async (req, res, next) => {
     try {
@@ -33,7 +36,8 @@ exports.gameSearch = async (req,res, next) => {
 
 exports.gameNew = async (req, res, next) => { 
     try {
-        res.render('games/game-form', { game: {}, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
+        const [categories] = await getCategories(pool);
+        res.render('games/game-form', { game: {}, categories, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
     } catch(e) {
         next(e);
     }
@@ -41,9 +45,21 @@ exports.gameNew = async (req, res, next) => {
 
 exports.gameCreate = async (req, res, next) => {
     try {
-        const body = req.body;
-        console.log('Form data:', body);
-        await createGame(body);
+        // const body = req.body;
+        // console.log('Form data:', body);
+        // await createGame(body);
+        const { title, price, linkImage, categories } = req.body;
+
+        const newGame = await createGame({title, price, linkImage});
+        const gameMongoId = newGame._id.toString();
+
+        if (categories) {
+            const categoryIds = Array.isArray(categories) ? categories : [categories]; // Pour que ça soit obligatoirement un tableau
+            for (const categoryId of categoryIds) {
+                await addGameCategory(pool, gameMongoId, categoryId);
+            }
+        }
+
         res.redirect('/games');
     } catch(e) {
         const errors = Object.keys(e.errors).map(key => e.errors[key].message);
@@ -54,7 +70,13 @@ exports.gameCreate = async (req, res, next) => {
 exports.gameDelete = async (req, res, next) => {
     try {
         const gameId = req.params.gameid;
+
+        await removeGameCategories(pool, gameId);
+
+        await removeGameReviews(pool, gameId);
+
         await deleteGame(gameId);
+
         const games = await getGames();
         res.render('games/game-list', {games})
     } catch(e) {
@@ -68,8 +90,11 @@ exports.gameEdit = async (req, res,next) => {
     try {
         const gameId = req.params.gameId;
         const game = await getGame(gameId);
-        res.render('games/game-form', { game, isAuthenticated: req.isAuthenticated(), currentUser: req.user });
+        const [categories] = await getCategories(pool);
+        const [gameCategories] = await getGameCategories(pool, gameId);
+        res.render('games/game-form', { game, categories, gameCategories, isAuthenticated: req.isAuthenticated(), currentUser: req.user });
     } catch(e) {
+        console.error('Erreur dans gameEdit:', e);
         next(e);
     }
 }
@@ -77,12 +102,26 @@ exports.gameEdit = async (req, res,next) => {
 exports.gameUpdate = async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
+        const { title, price, linkImage, categories } = req.body;
 
-        const body = req.body;
-        await updateGame(gameId, body);
+        await updateGame(gameId, { title, price, linkImage});
+
+        await removeGameCategories(pool, gameId);
+
+        if (categories) {
+            const categoryIds = Array.isArray(categories) ? categories : [categories];
+            for (const categoryId of categoryIds) {
+                await addGameCategory(pool, gameId, categoryId);
+            }
+        }
+
+
+        // const body = req.body;
+        // await updateGame(gameId, body);
         res.redirect('/games');
 
     } catch(e) {
+        console.error('Erreur dans gameUpdate:', e);
         next(e);
     }
 }
@@ -91,7 +130,8 @@ exports.gamePage = async (req, res, next) => {
     try {
         const gameId = req.params.gameId;
         const game = await getGame(gameId);
-        res.render('games/game-page', { game, isAuthenticated: req.isAuthenticated(), currentUser: req.user });
+        const [reviews] = await getReviewsByGameId(pool, gameId);
+        res.render('games/game-page', { game, reviews, isAuthenticated: req.isAuthenticated(), currentUser: req.user });
     } catch(e) {
         next(e);
     }

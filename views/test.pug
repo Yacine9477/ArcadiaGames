@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    meta(charset="utf-8")
+    title Données MySQL
+  body
+    h1 Données depuis MySQL
+    if data.length
+      ul
+        each item in data
+          li #{item.title}
+    else
+      p Aucune donnée trouvée.

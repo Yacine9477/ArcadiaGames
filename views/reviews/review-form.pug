@@ -1,0 +1,12 @@
+extends ../layout.pug
+
+block content
+    div(class="form-container")
+        div(class="card")
+            form(method="post" action='/review/' + gameId)
+                label(for="title") Titre
+                input(class="form-control" type="text" id="title" name="title" placeholder="Entrez un titre")
+                label(for="rating") Note (sur 5)
+                input(class="form-control" type="number" id="rating" name="rating" min="1" max="5" step="1" placeholder="Donnez une note de 1 à 5")
+                textarea(class="form-control" name="content" placeholder="Exprimez-vous")
+                button(type="submit") Ajouter

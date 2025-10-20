@@ -6,5 +6,7 @@ block content
             h2= game.title
             img(src= game.linkImage alt="affiche jeu")
         div(class="container-page-buy")
-            button(class="btn")= game.price
+            a(href='#' class="btn")= game.price
                 span  €
+        a(href="/review/form/" + game._id class="btn")
+    include ../reviews/review-list.pug
