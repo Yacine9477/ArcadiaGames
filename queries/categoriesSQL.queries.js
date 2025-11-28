@@ -1,6 +1,6 @@
 
 exports.getCategories = (pool) => {
-    return pool.query('SELECT * FROM categories ORDER BY name ASC');
+    return pool.execute('SELECT * FROM categories ORDER BY name ASC');
 }
 
 exports.addGameCategory = (pool, gameMongoId, categoryId) => {
@@ -9,7 +9,7 @@ exports.addGameCategory = (pool, gameMongoId, categoryId) => {
 }
 
 exports.getGameCategories = (pool, gameMongoId) => {
-    return pool.query(`
+    return pool.execute(`
         SELECT c.id, c.name 
         FROM categories c 
         JOIN game_categories gc ON c.id = gc.category_id 
@@ -25,7 +25,7 @@ exports.removeGameCategories = (pool, gameMongoId) => {
 }
 
 exports.getGameIdsByCategory = (pool, categoryId) => {
-    return pool.query(`
+    return pool.execute(`
         SELECT game_mongo_id 
         FROM game_categories 
         WHERE category_id = ?

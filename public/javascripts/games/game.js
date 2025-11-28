@@ -8,19 +8,29 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 function bindGame() {
-    const elements = document.querySelectorAll('.admin-btn-delete');
     const gameContainer = document.querySelector('.games-grid-admin');
-    elements.forEach( e => {
-        e.addEventListener('click', ($event) => {
-            const gameId = $event.target.getAttribute('gameid');
-            console.log(gameId);
-            axios.delete('/games/' + gameId).then(function(response) {
+    
+    // Utiliser la délégation d'événement pour éviter les multiples listeners
+    gameContainer.removeEventListener('click', handleDeleteClick);
+    gameContainer.addEventListener('click', handleDeleteClick);
+}
+
+function handleDeleteClick(event) {
+    if (event.target.classList.contains('admin-btn-delete')) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        const gameId = event.target.getAttribute('gameid');
+        console.log('Deleting game:', gameId);
+        
+        axios.delete('/games/' + gameId).then(function(response) {
             // Supprimer l'élément du DOM directement
-            const gameCard = $event.target.closest('.admin-game-card');
+            const gameCard = event.target.closest('.admin-game-card');
             gameCard.remove();
-        }).catch(function(err) {console.log(err)});
-        })
-    })
+        }).catch(function(err) {
+            console.log('Error deleting game:', err);
+        });
+    }
 }
 
 function search() {

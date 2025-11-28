@@ -3,6 +3,14 @@ extends ../layout
 block content
     div(class="form-container")
         div(class="card")
+            // Affichage des erreurs
+            if errors && errors.length
+                div(class="error-messages")
+                    each error in errors
+                        div(class="error-message")
+                            i(class="fas fa-exclamation-triangle")
+                            span= error
+            
             form(method="post" action="/users/signup")
                 label(for="username") Username
                 input(class="form-control" type="text" id="username" name="username" placeholder="Entrez votre nom")
@@ -10,4 +18,18 @@ block content
                 input(class="form-control" type="email" id="email" name="email" placeholder="Entrez votre email") 
                 label(for="password") Password
                 input(class="form-control" type="password" id="password" name="password" placeholder="Entrez votre mot de passe")
+                
+                // Affichage des critères du mot de passe
+                div(class="password-requirements")
+                    p(class="requirements-title") Le mot de passe doit contenir :
+                    ul(class="requirements-list")
+                        li Au minimum 8 caractères
+                        li Au moins une lettre minuscule (a-z)
+                        li Au moins une lettre majuscule (A-Z)
+                        li Au moins un chiffre (0-9)
+                        li Au moins un caractère spécial (!@#$%^&*...)
+                
                 button(type="submit" value="Envoyer") S'inscrire
+    
+    // Script de validation en temps réel du mot de passe
+    script(src="/javascripts/password-validation.js")

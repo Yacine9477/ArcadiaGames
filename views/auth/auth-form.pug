@@ -3,6 +3,14 @@ extends ../layout
 block content 
         div(class="form-container")
             div(class="card")
+                // Affichage des erreurs
+                if errors && errors.length
+                    div(class="error-messages")
+                        each error in errors
+                            div(class="error-message")
+                                i(class="fas fa-exclamation-triangle")
+                                span= error
+                
                 form(method="post" action="/auth/signin")
                     label(for="email") Email
                     input(class="form-control" type="email" id="email" name="email" placeholder="Entrez votre email") 

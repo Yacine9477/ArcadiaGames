@@ -1,7 +1,7 @@
 
 
 exports.getReviews = (pool) => {
-    return pool.query('SELECT * FROM reviews');
+    return pool.execute('SELECT * FROM reviews');
 }
 
 exports.createReview = (pool, userId, username, gameId, title, rating, content) => {
@@ -9,7 +9,7 @@ exports.createReview = (pool, userId, username, gameId, title, rating, content) 
 }
 
 exports.getReviewsByGameId = (pool, gameId) => {
-    return pool.query('SELECT * FROM reviews WHERE game_mongo_id = ?', [gameId]);
+    return pool.execute('SELECT * FROM reviews WHERE game_mongo_id = ?', [gameId]);
 }
 
 exports.removeGameReviews = (pool, gameId) => {

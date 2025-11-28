@@ -5,3 +5,8 @@ node_modules/
 coverage/
 dist/
 build/
+
+# Docker
+**/node_modules/
+docker-compose.override.yml
+.docker/

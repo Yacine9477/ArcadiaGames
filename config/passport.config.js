@@ -31,11 +31,11 @@ passport.use('local', new LocalStrategy({
             if(match) {
                 done(null, user);
             } else {
-                done(null, false, { message: 'Wrong password'});
+                done(null, false, { message: 'Mot de passe ou email incorrect'});
             }
         }
         else {
-            done(null, false, { message: 'User not found'});
+            done(null, false, { message: 'Mot de passe ou email incorrect'});
         }
 
     } catch(e) {
